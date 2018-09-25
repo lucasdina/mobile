@@ -1,0 +1,210 @@
+OnDevice changes:
+
+XAML:
+Book has
+<ContentPage.Padding> 
+	<OnPlatform x:TypeArguments="Thickness" 
+		    iOS="10, 20, 10, 10" 
+		    Android="10, 0, 10, 10" 
+		    WinPhone="10, 0, 10, 10" /> 
+</ContentPage.Padding>
+Change to
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="10, 20, 10, 10" />
+            <On Platform="Android" Value="10, 0, 10, 10" />
+            <On Platform="UWP" Value="10, 0, 10, 10" />
+        </OnPlatform>
+    </ContentPage.Padding>
+
+Book has
+
+	<OnPlatform x:Key="backgroundColor"
+                    x:TypeArguments="Color"
+                    Android="#404040" />
+
+	<OnPlatform x:Key="bordercolor"
+                    x:TypeArguments="Color"
+                    Android="White"
+                    WinPhone="Black" />
+
+Changes to
+
+            <OnPlatform x:Key="backgroundColor"
+                        
+                        x:TypeArguments="Color">
+                
+		<On Platform="Android" Value="#404040" />
+            
+	    </OnPlatform>
+
+            
+
+            <OnPlatform x:Key="borderColor"
+                        
+                        x:TypeArguments="Color">
+                
+		<On Platform="Android" Value="White" />
+                
+		<On Platform="UWP" Value="Black" />
+            
+            </OnPlatform>
+
+
+Book has
+
+<OnPlatform x:Key=textColor"
+            x:TypeArgument="Color"
+            iOS="Red"
+            Android="Pink"
+            WinPhone="Blue" />
+
+Changes to 
+            <OnPlatform x:Key="textColor"
+
+                        x:TypeArguments="Color">
+                
+		<On Platform="iOS" Value="Red" />
+                
+		<On Platform="Android" Value="Pink" />
+                
+		<On Platform="UWP" Value="Blue" />
+            
+	    </OnPlatform>
+
+
+Or Just iOS:
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+        </OnPlatform>>
+    </ContentPage.Padding>
+
+Book has
+<OnPlatform x:TypeArguments="FileImageSource" 
+		iOS="edit.png" 
+		Android="ic_action_edit.png" 
+		WinPhone="Images/edit.png" /> 
+Changes to
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="edit.png" />
+                    <On Platform="Android" Value="ic_action_edit.png" />
+                    <On Platform="UWP" Value="Images/edit.png" />
+                </OnPlatform>
+Book has
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="ScaryColorList.ScaryColorListPage" 
+		Padding="0, 20, 0, 0"> 
+</ContentPage>				
+Changes to
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ScaryColorList.ScaryColorListPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+Book has
+<OnPlatform x:TypeArguments="View"> 
+	<OnPlatform.iOS> 
+		<Label Text="This is an iOS device" 
+			HorizontalOptions="Center" 
+			VerticalOptions="Center" /> 
+	</OnPlatform.iOS> 
+	<OnPlatform.Android> 
+		<Label Text="This is an Android device" 
+			HorizontalOptions="Center" 
+			VerticalOptions="Center" /> 	
+	</OnPlatform.Android> 
+	<OnPlatform.WinPhone> 
+		<Label Text="This is an Windows 
+			HorizontalOptions="Center" 
+			VerticalOptions="Center" /> 
+	</OnPlatform.WinPhone> 
+</OnPlatform>
+Changes to
+    <Label x:Name="deviceLabel"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+        <Label.Text>
+            <OnPlatform x:TypeArguments="x:String">
+                <On Platform="iOS" Value="This is an iOS device" />
+                <On Platform="Android" Value="This is an Android device" />
+                <On Platform="UWP" Value="This is a Windows device" />
+            </OnPlatform>
+        </Label.Text>
+    </Label>
+
+Book has
+<Button.BackgroundColor> 
+	<OnPlatform x:TypeArguments="Color" Android="#404040" /> 
+</Button.BackgroundColor>
+Change to
+            <Button.BackgroundColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="Android" Value="#404040" />
+                </OnPlatform>
+            </Button.BackgroundColor>   
+         
+Code:
+
+Book has
+            this.Padding = new Thickness(5, Device.OnPlatform(25, 5, 5), 5, 5);
+Changes to 
+            Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 25 : 5, 5, 5);
+
+Book has
+new Setter 
+{ 
+	Property = VisualElement.BackgroundColorProperty, 
+	Value = Device.OnPlatform(Color.Default, 
+				  Color.FromRgb(0x40, 0x40, 0x40),
+				  Color.Default) 
+},
+Change to 
+                            new Setter
+                            {
+                                Property = Button.BorderColorProperty,
+                                Value = Device.RuntimePlatform == Device.iOS ? Color.Default : 
+                                        Device.RuntimePlatform == Device.Android ? Color.White : Color.Black
+                            }
+Book has
+Image image = new Image 
+{ 
+	Source = new FileImageSource 
+	{ 
+		File = Device.OnPlatform(iOS: "Icon-Small-40.png", 
+					Android: "icon.png", 
+					WinPhone: "Assets/StoreLogo.png") 
+	}, 
+	HorizontalOptions = LayoutOptions.Center, 
+	VerticalOptions = LayoutOptions.CenterAndExpand 
+};
+Change to
+            FileImageSource imgSrc = new FileImageSource();
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    imgSrc.File = "Icon-Small-40.png";
+                    break;
+
+                case Device.Android:
+                    imgSrc.File = "icon.png";
+                    break;
+
+                case Device.UWP:
+                    imgSrc.File = "Assets/StoreLogo.png";
+                    break;
+            }
+
+            Image image = new Image
+            {
+                Source = imgSrc,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
