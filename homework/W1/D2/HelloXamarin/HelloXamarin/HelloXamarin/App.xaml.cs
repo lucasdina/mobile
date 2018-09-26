@@ -11,7 +11,7 @@ namespace HelloXamarin
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Hello();
         }
 
         protected override void OnStart()

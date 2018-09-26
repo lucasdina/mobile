@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace HelloXamarin
 {
-    public partial class MainPage : ContentPage
+    public partial class Hello : ContentPage
     {
-        public MainPage()
+        public Hello()
         {
             InitializeComponent();
         }
