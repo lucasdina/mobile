@@ -11,7 +11,7 @@ namespace Project1
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new GreetingsRandyPage();
         }
 
         protected override void OnStart()
