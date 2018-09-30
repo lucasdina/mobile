@@ -14,17 +14,20 @@ namespace Project1
             FormattedString formattedString = new FormattedString();
             formattedString.Spans.Add(new Span
             {
-                Text = "I "
+                Text = "Hi, Randy! " + Environment.NewLine,
+                ForegroundColor = Color.Red
             });
             formattedString.Spans.Add(new Span
             {
-                Text = "love",
+                Text = "This is Lucas." + Environment.NewLine,
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-                FontAttributes = FontAttributes.Bold
+                FontAttributes = FontAttributes.Bold,
+                ForegroundColor = Color.Green
             });
             formattedString.Spans.Add(new Span
             {
-                Text = " Xamarin.Forms!"
+                Text = "SWDV 265 Mobile Apps Developement",
+                ForegroundColor = Color.Blue
             });
             Content = new Label
             {
