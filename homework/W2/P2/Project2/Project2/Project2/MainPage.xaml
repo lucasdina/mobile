@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Project2"
+             x:Class="Project2.MainPage">
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout.Children>
+                <Frame OutlineColor="Purple" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Frame OutlineColor="Blue">
+                        <Frame OutlineColor="LightBlue">
+                            <Frame.Content>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout.Children>
+                                        <Label VerticalOptions="Center" Text="Lucas has been framed!" />
+                                    </StackLayout.Children>
+                                </StackLayout>
+                            </Frame.Content>
+                        </Frame>
+                    </Frame>
+                </Frame>
+            </StackLayout.Children>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
