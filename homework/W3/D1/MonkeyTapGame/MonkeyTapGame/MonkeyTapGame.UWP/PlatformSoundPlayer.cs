@@ -26,16 +26,17 @@ namespace MonkeyTapGame.UWP
             {
                 if (samplePlayed)
                     return;
+
                 IBuffer ibuffer = pcmData.AsBuffer();
                 MediaStreamSample sample =
-                   MediaStreamSample.CreateFromBuffer(ibuffer, TimeSpan.Zero);
+                    MediaStreamSample.CreateFromBuffer(ibuffer, TimeSpan.Zero);
                 sample.Duration = TimeSpan.FromSeconds(pcmData.Length / 2.0 / samplingRate);
+                args.Request.Sample = sample;
                 samplePlayed = true;
             };
 
             mediaElement.SetMediaStreamSource(mss);
         }
-
     }
 }
 
