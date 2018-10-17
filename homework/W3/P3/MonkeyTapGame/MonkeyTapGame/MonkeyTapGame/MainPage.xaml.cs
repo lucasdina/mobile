@@ -9,12 +9,31 @@ using Xamarin.Forms.Xaml;
 
 namespace MonkeyTapGame
 {
+    class MonkeyTapWithSoundFastPage: MonkeyTapWithSoundPage
+    {
+        double endFrequency = 66.4;
+        List<byte[]> buffers;
+        byte[] endBuffer;
+
+        protected override void InitializeBoxView()
+        {
+            buffers = new List<byte[]>();
+            for (int i = 0; i < 4; i++)
+            {
+                byte[] buffer = SoundPlayer.MakeBuffer(base.frequencies[i]);
+                buffers.Add(buffer);
+            }
+            endBuffer = SoundPlayer.MakeBuffer(endFrequency);
+            base.InitializeBoxView();
+        }
+    }
+
     class MonkeyTapWithSoundPage : MonkeyTapGame.MainPage
     {
         const int errorDuration = 500;
 
         // Diminished 7th in 1st inversion: C, Eb, F#, A
-        double[] frequencies = { 523.25, 622.25, 739.99, 880 };
+        public double[] frequencies = { 523.25, 622.25, 739.99, 880 };
 
         protected override void FlashBoxView(int index)
         {
