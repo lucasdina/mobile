@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MonkeyTapGame
 {
-    class IPlatformSoundPlayer
+    public interface IPlatformSoundPlayer
     {
         void PlaySound(int samplingRate, byte[] pcmData);
 
