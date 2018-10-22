@@ -39,6 +39,11 @@ namespace MonkeyTapGame
             return byteBuffer;
         }
 
+        public static void PlayBufferedSound(byte[] byteBuffer)
+        {
+            DependencyService.Get<IPlatformSoundPlayer>().PlaySound(samplingRate, byteBuffer);
+        }
+
         // Hard-coded for monaural, 16-bit-per-sample PCM
         public static void PlaySound(double frequency = 400, int duration = 250)
         {

@@ -26,6 +26,18 @@ namespace MonkeyTapGame
             endBuffer = SoundPlayer.MakeBuffer(endFrequency);
             base.InitializeBoxView();
         }
+
+        protected override void FlashBoxView(int index)
+        {
+            SoundPlayer.PlayBufferedSound(buffers[index]);
+            base.FlashBoxView(index);
+        }
+
+        protected override void EndGame()
+        {
+            SoundPlayer.PlayBufferedSound(endBuffer);
+            base.EndGame();
+        }
     }
 
     class MonkeyTapWithSoundPage : MonkeyTapGame.MainPage
@@ -34,18 +46,6 @@ namespace MonkeyTapGame
 
         // Diminished 7th in 1st inversion: C, Eb, F#, A
         public double[] frequencies = { 523.25, 622.25, 739.99, 880 };
-
-        protected override void FlashBoxView(int index)
-        {
-            SoundPlayer.PlaySound(frequencies[index], flashDuration);
-            base.FlashBoxView(index);
-        }
-
-        protected override void EndGame()
-        {
-            SoundPlayer.PlaySound(65.4, errorDuration);
-            base.EndGame();
-        }
     }
 
 
